@@ -1,0 +1,57 @@
+Governor-Limit Violations and Anti-Patterns in the Broken Code
+
+1. SOQL Query Inside Loop (Contacts)
+   Problem: A SOQL query runs once per Account record.
+   Why Wrong: Can easily exceed the 100 SOQL queries per transaction limit.
+
+2. DML Update Inside Loop (Contacts)
+   Problem: Each Contact is updated individually inside a loop.
+   Why Wrong: Can exceed the 150 DML statements limit and hurts performance.
+
+3. SOQL Query Inside Loop (Opportunities)
+   Problem: Opportunity records are queried separately for every Account.
+   Why Wrong: Causes excessive SOQL usage and poor scalability.
+
+4. DML Insert Inside Loop (Opportunities)
+   Problem: Opportunities are inserted one-by-one.
+   Why Wrong: Consumes unnecessary DML statements and reduces performance.
+
+5. SOQL Query Inside Loop (Account Re-query)
+   Problem: The Account is queried again even though it is already available in Trigger.new.
+   Why Wrong: Wastes SOQL queries and CPU time.
+
+6. Updating Trigger Records in an After Trigger
+   Problem: The code performs update acc inside an after trigger.
+   Why Wrong: Causes extra DML operations and can create recursion issues.
+
+7. No Bulkification
+   Problem: Logic processes records one at a time instead of as collections.
+   Why Wrong: Fails when large data volumes are processed.
+
+8. Excessive CPU Consumption
+   Problem: Multiple nested loops, repeated queries, and repeated DML operations.
+   Why Wrong: Can lead to CPU time limit exceeded errors.
+
+9. Re-querying Existing Data
+   Problem: Account data is queried even though it already exists in Trigger.new.
+   Why Wrong: Unnecessary database calls waste governor limits.
+
+10. Trigger Contains Business Logic
+    Problem: All logic is written directly in the trigger.
+    Why Wrong: Makes maintenance difficult and violates trigger-handler best practices.
+
+11. No Collection-Based DML
+    Problem: Records are not accumulated into lists for a single DML operation.
+    Why Wrong: Creates excessive database operations.
+
+12. Poor Scalability
+    Problem: The design assumes a small dataset.
+    Why Wrong: Breaks when processing hundreds or thousands of records.
+
+13. Potential Trigger Recursion Risk
+    Problem: Updating Account records from an Account trigger can re-fire the trigger.
+    Why Wrong: Can lead to infinite loops and unexpected behavior.
+
+14. No Separation of Concerns
+    Problem: Trigger, querying, business logic, and DML are mixed together.
+    Why Wrong: Makes testing, debugging, and maintenance harder.
