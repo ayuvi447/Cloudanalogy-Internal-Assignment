@@ -1,0 +1,24 @@
+<template>
+    <div class="kpi-card" onclick={handleClick}>
+
+        <!-- Title -->
+        <div class="kpi-title">{title}</div>
+
+        <!-- Value -->
+        <div class="kpi-value">{value}</div>
+
+        <!-- Trend Icon -->
+        <div class="kpi-trend">
+            <template lwc:if={isTrendUp}>
+                ▲ <span class="trend-up">Up</span>
+            </template>
+            <template lwc:elseif={isTrendDown}>
+                ▼ <span class="trend-down">Down</span>
+            </template>
+            <template lwc:else>
+                ● <span class="trend-flat">Flat</span>
+            </template>
+        </div>
+
+    </div>
+</template>

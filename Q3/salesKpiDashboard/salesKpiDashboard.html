@@ -1,0 +1,60 @@
+<template>
+    <lightning-card title="Sales KPI Dashboard" icon-name="utility:chart">
+        <div class="slds-p-around_medium">
+
+            <!-- Region Filter Picklist -->
+            <lightning-combobox
+                label="Filter by Region"
+                value={selectedRegion}
+                options={regionOptions}
+                onchange={handleRegionChange}>
+            </lightning-combobox>
+
+            <!-- Loading Spinner -->
+            <template lwc:if={isLoading}>
+                <lightning-spinner alternative-text="Loading..."></lightning-spinner>
+            </template>
+
+            <!-- 4 KPI Cards -->
+            <div class="slds-grid slds-wrap slds-gutters slds-m-top_medium">
+                <template for:each={kpiCards} for:item="card">
+                    <div key={card.cardId} class="slds-col slds-size_1-of-2 slds-m-bottom_medium">
+                        <c-kpi-card
+                            title={card.title}
+                            value={card.value}
+                            trend={card.trend}
+                            card-id={card.cardId}
+                            oncardselect={handleCardSelect}>
+                        </c-kpi-card>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Detail Panel — card click pe dikhta hai -->
+            <template lwc:if={showDetail}>
+                <lightning-card title={detailTitle} class="slds-m-top_medium">
+                    <div class="slds-p-around_medium">
+
+                        <template lwc:if={isDetailLoading}>
+                            <lightning-spinner alternative-text="Loading details..."></lightning-spinner>
+                        </template>
+
+                        <template lwc:elseif={hasOpportunities}>
+                            <lightning-datatable
+                                key-field="Id"
+                                data={topOpportunities}
+                                columns={oppColumns}>
+                            </lightning-datatable>
+                        </template>
+
+                        <template lwc:else>
+                            <p>Koi opportunities nahi mili.</p>
+                        </template>
+
+                    </div>
+                </lightning-card>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>
