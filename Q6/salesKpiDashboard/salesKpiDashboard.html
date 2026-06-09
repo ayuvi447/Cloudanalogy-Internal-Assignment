@@ -1,0 +1,63 @@
+<template>
+
+    <lightning-card title="Sales KPI Dashboard">
+
+        <div  class="dashboard-header">
+
+            <lightning-combobox
+                label="Region"
+                value={selectedRegion}
+                options={regionOptions}
+                onchange={handleRegionChange}>
+            </lightning-combobox>
+
+            <div class="kpi-container slds-grid slds-wrap slds-m-top_medium">
+
+                <c-kpi-card
+                    title="Open Pipeline"
+                    value={openPipeline}
+                    trend="up"
+                    card-id="openPipeline"
+                    oncardclick={handleCardClick}>
+                </c-kpi-card>
+
+                <c-kpi-card
+                    title="Won Revenue"
+                    value={wonRevenue}
+                    trend="up"
+                    card-id="wonRevenue"
+                    oncardclick={handleCardClick}>
+                </c-kpi-card>
+
+                <c-kpi-card
+                    title="Average Deal Size"
+                    value={avgDealSize}
+                    trend="flat"
+                    card-id="avgDealSize"
+                    oncardclick={handleCardClick}>
+                </c-kpi-card>
+
+                <c-kpi-card
+                    title="Win Rate"
+                    value={winRate}
+                    trend="up"
+                    card-id="winRate"
+                    oncardclick={handleCardClick}>
+                </c-kpi-card>
+
+            </div>
+
+            <template if:true={selectedCard}>
+
+                <c-kpi-detail-panel
+                    card-id={selectedCard}
+                    region={selectedRegion}>
+                </c-kpi-detail-panel>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>

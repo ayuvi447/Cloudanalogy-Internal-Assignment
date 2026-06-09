@@ -1,0 +1,34 @@
+:host {
+    display: block;
+}
+
+lightning-card {
+    --slds-c-card-color-background: #f8fafc;
+}
+
+.slds-p-around_medium {
+    background: #f8fafc;
+    min-height: 100vh;
+}
+
+lightning-combobox {
+    max-width: 300px;
+}
+
+.slds-grid {
+    gap: 1rem;
+}
+
+c-kpi-card {
+    flex: 1 1 250px;
+    min-width: 250px;
+}
+
+c-kpi-detail-panel {
+    display: block;
+    margin-top: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+}
